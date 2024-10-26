@@ -35,3 +35,10 @@ class AuthController {
         }        
     }
 }
+<<<<<<< HEAD
+=======
+}
+
+
+                                                           
+>>>>>>> b005b548225cff45d63ec8c33b00a665ada0184c
