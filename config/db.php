@@ -1,12 +1,13 @@
 <?php
 $servername = "localhost";
-$username = "root@localhost";
-$password = "";
-$dbname = "test";
+$username = "root";
+$password = ""; // Defina a senha correta para o usuário root
+$dbname = "viver+";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Conexão falhou: " . $conn->connect_error);
 }
-?>
+
+return $conn;

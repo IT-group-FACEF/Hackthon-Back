@@ -1,18 +1,22 @@
 <?php
+require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../controllers/AuthController.php';
+require_once __DIR__ . '/../router.php';
 
-require_once __DIR__ . '/../controllers/AuthController.php'; // Caminho correto para a controller
+// Cria a conexão com o banco de dados a partir do config/db.php
+$conn = require __DIR__ . '/../config/db.php';
 
-$AuthController = new AuthController(); // Instancia a controller
+// Instancia o AuthController, passando a conexão como argumento
+$authController = new AuthController($conn);
 
-// Definir uma rota GET para /users
-$router->get('/users', function() {
-    return 'Exibindo todos os usuários';
+$router = new Router();
+
+// Define a rota POST para /login
+$router->post('/login', function() use ($authController) {
+    return $authController->login();
 });
 
-// Definir uma rota POST para /login
-$router->post('/login', function() use ($AuthController) {
-    // Agora a variável $AuthController está acessível dentro da closure
-    return $AuthController->login(); // Chama o método da controller
-});
-
-// Você pode adicionar mais rotas aqui, conforme necessário
+// Resolve a rota com base no método HTTP e URI
+$method = $_SERVER['REQUEST_METHOD'];
+$uri = $_SERVER['REQUEST_URI'];
+echo $router->resolve($method, $uri);
